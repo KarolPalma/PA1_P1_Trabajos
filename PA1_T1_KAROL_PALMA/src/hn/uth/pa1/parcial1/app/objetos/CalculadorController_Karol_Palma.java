@@ -5,6 +5,7 @@
  */
 package hn.uth.pa1.parcial1.app.objetos;
 
+import static hn.uth.pa1.parcial1.app.Frm_Calculador_Karol_Palma.lblValorCalculosRealizados;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,25 +38,21 @@ public class CalculadorController_Karol_Palma {
         opActual = operacion;
     }
     
-    public static void GuardarOperaciones(){
-        String operacion = "";
-        String resultado = "";
-        String signo = "";
-        String cont = "";
-        
-        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, Integer.parseInt(resultado), signo, Integer.parseInt(cont));
-        
-        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
-    }
     
-    public static void mostrarSigno(Calculador_Karol_Palma resultado){
-        if (resultado.getResultado() > 0){
-            
+    public static String mostrarSigno(int resultado){
+        String resul = "";
+        if(resultado < 0){
+            resul = "Negativo";
         }
+        if(resultado > 0){
+            resul = "Positivo";
+        }
+        if(resultado == 0){
+            resul = "Neutro";
+        }
+        return resul;
     }
-    
-    
-    
+
     public static Calculador_Karol_Palma getopActual(){
         return opActual;
     }

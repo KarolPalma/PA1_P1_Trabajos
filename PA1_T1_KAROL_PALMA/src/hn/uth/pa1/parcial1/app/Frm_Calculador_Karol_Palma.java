@@ -5,6 +5,7 @@
  */
 package hn.uth.pa1.parcial1.app;
 
+import hn.uth.pa1.parcial1.app.objetos.CalculadorController_Karol_Palma;
 import hn.uth.pa1.parcial1.app.objetos.Calculador_Karol_Palma;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -30,6 +31,60 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         String cont = String.valueOf(num);
         lblValorCalculosRealizados.setText(cont);
         System.out.println("Numero de Calculos Realizados: "+cont);
+    }
+    
+    public void GuardarOperacionesSumar(){ 
+        String operacion = txtA.getText()+" + "+txtB.getText();
+        int resultado = Integer.parseInt(lblValorResultado.getText());
+        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
+        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
+        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
+        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
+    }
+    
+    public void GuardarOperacionesRestar(){ 
+        String operacion = txtA.getText()+" - "+txtB.getText();
+        int resultado = Integer.parseInt(lblValorResultado.getText());
+        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
+        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
+        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
+        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
+    }
+    
+    public void GuardarOperacionesMultiplicar(){ 
+        String operacion = txtA.getText()+" x "+txtB.getText();
+        int resultado = Integer.parseInt(lblValorResultado.getText());
+        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
+        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
+        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
+        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
+    }
+    
+    public void GuardarOperacionesDividir(){ 
+        String operacion = txtA.getText()+" / "+txtB.getText();
+        int resultado = Integer.parseInt(lblValorResultado.getText());
+        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
+        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
+        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
+        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
+    }
+    
+    public void GuardarOperacionesPotencia(){ 
+        String operacion = txtA.getText()+" ^ "+txtB.getText();
+        int resultado = Integer.parseInt(lblValorResultado.getText());
+        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
+        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
+        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
+        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
+    }
+    
+    public void CargarOperaciones(){
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            CalculadorController_Karol_Palma.getListaOperacionComoArreglo(),
+            new String [] {
+                "Operaciones", "Resultado", "Signo"
+            }
+        ));
     }
 
     /**
@@ -73,6 +128,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
 
         lblNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblNombre.setForeground(new java.awt.Color(0, 153, 0));
+        lblNombre.setText("Nombre");
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTitulo.setText("Calculadora");
@@ -162,85 +218,89 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblHistorial))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblCalculosRealizados))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnActualizar)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(48, 48, 48)
-                                        .addComponent(lblValorCalculosRealizados))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblA, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lblB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtB, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addComponent(lblResultado)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(lblValorResultado)))
-                                .addGap(39, 39, 39)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(btnSumar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnDividir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnMultiplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnRestar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(btnPotencia)
-                                        .addGap(20, 20, 20)))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblA, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                                .addComponent(lblSaludo)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(103, 103, 103)
-                                .addComponent(lblTitulo)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtB, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(lblResultado)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblValorResultado)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(3, 3, 3)
                             .addComponent(lblOperaciones)
-                            .addComponent(btnRegresar))
-                        .addContainerGap(26, Short.MAX_VALUE))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnSumar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnDividir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnMultiplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnRestar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnPotencia)
+                                .addGap(20, 20, 20))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addComponent(btnRegresar)))
+                .addGap(35, 35, 35))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCalculosRealizados)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(38, 38, 38)
+                                .addComponent(lblValorCalculosRealizados))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnActualizar))
+                                .addGap(9, 9, 9)))
+                        .addGap(16, 16, 16))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblHistorial)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addComponent(lblSaludo)
+                                .addGap(28, 28, 28)
+                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(143, 143, 143)
+                .addComponent(lblTitulo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblSaludo)
-                            .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRegresar))
                         .addGap(18, 18, 18)
                         .addComponent(lblTitulo)
-                        .addGap(47, 47, 47)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblA, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -253,9 +313,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                             .addComponent(lblResultado)
                             .addComponent(lblValorResultado)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnRegresar)
-                        .addGap(56, 56, 56)
+                        .addGap(21, 88, Short.MAX_VALUE)
                         .addComponent(lblOperaciones)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -267,24 +325,22 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                             .addComponent(btnMultiplicar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnPotencia)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnQuitar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblCalculosRealizados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValorCalculosRealizados)
-                        .addGap(29, 29, 29))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))))
+                        .addComponent(lblValorCalculosRealizados)))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -308,6 +364,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             lblValorResultado.setText(Resul);
             
             conteo();
+            GuardarOperacionesSumar();
+            CargarOperaciones();
         }
     }//GEN-LAST:event_btnSumarActionPerformed
 
@@ -323,6 +381,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             lblValorResultado.setText(Resul);
             
             conteo();
+            GuardarOperacionesRestar();
+            CargarOperaciones();
         }
     }//GEN-LAST:event_btnRestarActionPerformed
 
@@ -334,16 +394,18 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             int B = Integer.parseInt(txtB.getText());
             String Resul = " ";
             if(B == 0){
-                Resul= "La división entre 0 no tiene solución";
+                Resul= "No hay solución";
                 System.out.println("La división entre 0 no tiene solución");
             }else{
                 int Resultado = A / B;
                 System.out.println("La división de "+A+"/"+B+" es: "+ Resultado);
                 Resul = " " + Resultado;
-            }
-            lblValorResultado.setText(Resul);
+                lblValorResultado.setText(Resul);
             
-            conteo();
+                conteo();
+                GuardarOperacionesDividir();
+                CargarOperaciones();
+            }
         }
     }//GEN-LAST:event_btnDividirActionPerformed
 
@@ -359,6 +421,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             lblValorResultado.setText(Resul);
             
             conteo();
+            GuardarOperacionesMultiplicar();
+            CargarOperaciones();
         }
     }//GEN-LAST:event_btnMultiplicarActionPerformed
 
@@ -375,12 +439,14 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             }
             System.out.println("La potencia de "+A+"^"+B+" es: "+ Resultado);
             Resul = " " + Resultado;
-        lblValorResultado.setText(Resul);
+            lblValorResultado.setText(Resul);
         
-        conteo();
+            conteo();
+            GuardarOperacionesPotencia();
+            CargarOperaciones();
         }
     }//GEN-LAST:event_btnPotenciaActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
