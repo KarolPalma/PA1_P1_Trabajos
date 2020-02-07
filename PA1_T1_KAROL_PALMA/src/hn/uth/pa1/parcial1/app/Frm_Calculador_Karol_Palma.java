@@ -5,8 +5,10 @@
  */
 package hn.uth.pa1.parcial1.app;
 
+import hn.uth.pa1.parcial1.app.objetos.Calculador_Karol_Palma;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +21,15 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
      */
     public Frm_Calculador_Karol_Palma() {
         initComponents();
+    }
+    
+    private int num = 0;
+    
+    public void conteo(){
+        num++;
+        String cont = String.valueOf(num);
+        lblValorCalculosRealizados.setText(cont);
+        System.out.println("Numero de Calculos Realizados: "+cont);
     }
 
     /**
@@ -42,18 +53,18 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         lblOperaciones = new javax.swing.JLabel();
         lblHistorial = new javax.swing.JLabel();
         btnDividir = new javax.swing.JButton();
-        lblMultiplicar = new javax.swing.JButton();
+        btnMultiplicar = new javax.swing.JButton();
         btnSumar = new javax.swing.JButton();
         btnRestar = new javax.swing.JButton();
-        lblPotencia = new javax.swing.JButton();
+        btnPotencia = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblQuitar = new javax.swing.JButton();
+        btnQuitar = new javax.swing.JButton();
         lblCalculosRealizados = new javax.swing.JLabel();
-        lblActualizar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         lblValorCalculosRealizados = new javax.swing.JLabel();
-        lblRegresar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Calculador");
@@ -82,14 +93,39 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         lblHistorial.setText("Historial:");
 
         btnDividir.setText("/");
+        btnDividir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDividirActionPerformed(evt);
+            }
+        });
 
-        lblMultiplicar.setText("*");
+        btnMultiplicar.setText("*");
+        btnMultiplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMultiplicarActionPerformed(evt);
+            }
+        });
 
         btnSumar.setText("+");
+        btnSumar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSumarActionPerformed(evt);
+            }
+        });
 
         btnRestar.setText("-");
+        btnRestar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestarActionPerformed(evt);
+            }
+        });
 
-        lblPotencia.setText("^");
+        btnPotencia.setText("^");
+        btnPotencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPotenciaActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -104,20 +140,20 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        lblQuitar.setText("Quitar");
+        btnQuitar.setText("Quitar");
 
         lblCalculosRealizados.setText("Calculos Realizados:");
 
-        lblActualizar.setText("Actualizar");
+        btnActualizar.setText("Actualizar");
 
         lblValorCalculosRealizados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblValorCalculosRealizados.setForeground(new java.awt.Color(0, 153, 0));
         lblValorCalculosRealizados.setText("0");
 
-        lblRegresar.setText("Regresar");
-        lblRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblRegresarActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
 
@@ -141,8 +177,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(19, 19, 19)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblActualizar)))
+                                            .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnActualizar)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(48, 48, 48)
                                         .addComponent(lblValorCalculosRealizados))))
@@ -169,10 +205,10 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                                             .addComponent(btnDividir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(lblMultiplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnMultiplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(btnRestar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(lblPotencia)
+                                        .addComponent(btnPotencia)
                                         .addGap(20, 20, 20)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -189,7 +225,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblOperaciones)
-                            .addComponent(lblRegresar))
+                            .addComponent(btnRegresar))
                         .addContainerGap(26, Short.MAX_VALUE))))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -218,7 +254,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                             .addComponent(lblValorResultado)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(lblRegresar)
+                        .addComponent(btnRegresar)
                         .addGap(56, 56, 56)
                         .addComponent(lblOperaciones)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -228,9 +264,9 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDividir)
-                            .addComponent(lblMultiplicar))
+                            .addComponent(btnMultiplicar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPotencia)))
+                        .addComponent(btnPotencia)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -238,9 +274,9 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(lblQuitar)
+                        .addComponent(btnQuitar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblActualizar)
+                        .addComponent(btnActualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblCalculosRealizados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -254,11 +290,96 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblRegresarActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         Frm_Inicio_Karol_Palma abrirInicio = new Frm_Inicio_Karol_Palma();
         abrirInicio.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_lblRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
+ 
+    private void btnSumarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSumarActionPerformed
+        if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            int A = Integer.parseInt(txtA.getText());
+            int B = Integer.parseInt(txtB.getText());
+            int Resultado = A + B;
+            System.out.println("La suma de "+A+"+"+B+" es: "+ Resultado);
+            String Resul = "" + Resultado;
+            lblValorResultado.setText(Resul);
+            
+            conteo();
+        }
+    }//GEN-LAST:event_btnSumarActionPerformed
+
+    private void btnRestarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestarActionPerformed
+        if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            int A = Integer.parseInt(txtA.getText());
+            int B = Integer.parseInt(txtB.getText());
+            int Resultado = A - B;
+            System.out.println("La resta de "+A+"-"+B+" es: "+ Resultado);
+            String Resul = "" + Resultado;
+            lblValorResultado.setText(Resul);
+            
+            conteo();
+        }
+    }//GEN-LAST:event_btnRestarActionPerformed
+
+    private void btnDividirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDividirActionPerformed
+        if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            int A = Integer.parseInt(txtA.getText());
+            int B = Integer.parseInt(txtB.getText());
+            String Resul = " ";
+            if(B == 0){
+                Resul= "La división entre 0 no tiene solución";
+                System.out.println("La división entre 0 no tiene solución");
+            }else{
+                int Resultado = A / B;
+                System.out.println("La división de "+A+"/"+B+" es: "+ Resultado);
+                Resul = " " + Resultado;
+            }
+            lblValorResultado.setText(Resul);
+            
+            conteo();
+        }
+    }//GEN-LAST:event_btnDividirActionPerformed
+
+    private void btnMultiplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultiplicarActionPerformed
+        if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            int A = Integer.parseInt(txtA.getText());
+            int B = Integer.parseInt(txtB.getText());
+            int Resultado = A * B;
+            System.out.println("La multiplicación de "+A+"*"+B+" es: "+ Resultado);
+            String Resul = " " + Resultado;
+            lblValorResultado.setText(Resul);
+            
+            conteo();
+        }
+    }//GEN-LAST:event_btnMultiplicarActionPerformed
+
+    private void btnPotenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPotenciaActionPerformed
+        if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            int A = Integer.parseInt(txtA.getText());
+            int B = Integer.parseInt(txtB.getText());
+            int Resultado = 1;
+            String Resul = "";
+            for (int i = 0; i<B; i++){
+                Resultado = Resultado * A;
+            }
+            System.out.println("La potencia de "+A+"^"+B+" es: "+ Resultado);
+            Resul = " " + Resultado;
+        lblValorResultado.setText(Resul);
+        
+        conteo();
+        }
+    }//GEN-LAST:event_btnPotenciaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -286,6 +407,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Frm_Calculador_Karol_Palma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -297,27 +419,27 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnDividir;
+    private javax.swing.JButton btnMultiplicar;
+    private javax.swing.JButton btnPotencia;
+    private javax.swing.JButton btnQuitar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRestar;
     private javax.swing.JButton btnSumar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblA;
-    private javax.swing.JButton lblActualizar;
     private javax.swing.JLabel lblB;
     private javax.swing.JLabel lblCalculosRealizados;
     private javax.swing.JLabel lblHistorial;
-    private javax.swing.JButton lblMultiplicar;
-    private javax.swing.JLabel lblNombre;
+    public static javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblOperaciones;
-    private javax.swing.JButton lblPotencia;
-    private javax.swing.JButton lblQuitar;
-    private javax.swing.JButton lblRegresar;
     private javax.swing.JLabel lblResultado;
     private javax.swing.JLabel lblSaludo;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblValorCalculosRealizados;
+    public static javax.swing.JLabel lblValorCalculosRealizados;
     private javax.swing.JLabel lblValorResultado;
     private javax.swing.JTextField txtA;
     private javax.swing.JTextField txtB;

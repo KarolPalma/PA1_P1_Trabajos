@@ -93,6 +93,8 @@ public class Frm_Inicio_Karol_Palma extends javax.swing.JFrame {
             Frm_Calculador_Karol_Palma abrirCalculador = new Frm_Calculador_Karol_Palma();
             abrirCalculador.setVisible(true);
             this.setVisible(false);
+            String nombre = txtNombre.getText();
+            abrirCalculador.lblNombre.setText(nombre);
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
@@ -121,6 +123,7 @@ public class Frm_Inicio_Karol_Palma extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Frm_Inicio_Karol_Palma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
