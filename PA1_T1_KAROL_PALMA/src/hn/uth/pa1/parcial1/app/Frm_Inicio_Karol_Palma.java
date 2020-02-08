@@ -5,6 +5,7 @@
  */
 package hn.uth.pa1.parcial1.app;
 
+import static hn.uth.pa1.parcial1.app.Frm_Calculador_Karol_Palma.lblValorCalculosRealizados;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +19,7 @@ public class Frm_Inicio_Karol_Palma extends javax.swing.JFrame {
      */
     public Frm_Inicio_Karol_Palma() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

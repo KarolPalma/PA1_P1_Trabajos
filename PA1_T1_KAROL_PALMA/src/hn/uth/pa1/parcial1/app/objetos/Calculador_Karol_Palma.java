@@ -16,20 +16,17 @@ public class Calculador_Karol_Palma {
     private String Operacion;
     private int Resultado;
     private String Signo;
-    private int conteoCalculosRealizados;
     
     public Calculador_Karol_Palma() {
         this.Operacion = "";
         this.Resultado = 0;
         this.Signo = "";
-        this.conteoCalculosRealizados = 0;
     }
     
-    public Calculador_Karol_Palma(String Operacion, int Resultado, String Signo, int cont) {
+    public Calculador_Karol_Palma(String Operacion, int Resultado, String Signo) {
         this.Operacion = Operacion;
         this.Resultado = Resultado;
         this.Signo = Signo;
-        this.conteoCalculosRealizados = cont;
     }
 
     public String getOperacion() {
@@ -55,19 +52,4 @@ public class Calculador_Karol_Palma {
     public void setSigno(String Signo) {
         this.Signo = Signo;
     }
-
-    public int getConteoCalculosRealizados() {
-        return conteoCalculosRealizados;
-    }
-
-    public void setConteoCalculosRealizados(int conteoCalculosRealizados) {
-        this.conteoCalculosRealizados = conteoCalculosRealizados;
-    }
-
-    @Override
-    public String toString() {
-        return "" + conteoCalculosRealizados;
-    }
-    
-    
 }

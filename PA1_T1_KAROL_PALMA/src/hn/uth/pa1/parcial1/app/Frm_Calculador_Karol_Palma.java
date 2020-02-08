@@ -7,85 +7,56 @@ package hn.uth.pa1.parcial1.app;
 
 import hn.uth.pa1.parcial1.app.objetos.CalculadorController_Karol_Palma;
 import hn.uth.pa1.parcial1.app.objetos.Calculador_Karol_Palma;
-import java.awt.Color;
+import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author KP
  */
 public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
-
     /**
      * Creates new form Frm_Calculador_Karol_Palma
      */
+    
+    public static LinkedList contenedor = new LinkedList();
+    public int buscar;
+    
+    private DefaultTableModel modelo;
+    int contador = 0;
+    
     public Frm_Calculador_Karol_Palma() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
-    private int num = 0;
-    
-    public void conteo(){
-        num++;
-        String cont = String.valueOf(num);
-        lblValorCalculosRealizados.setText(cont);
-        System.out.println("Numero de Calculos Realizados: "+cont);
+    public void CargarInterfaz(){
+        String datos[][]={};
+        String columna[]={"Operaciones ","Resultado ", "Signo"};
+        modelo = new DefaultTableModel(datos, columna);
+        tblHistorial.setModel(modelo);
     }
     
-    public void GuardarOperacionesSumar(){ 
-        String operacion = txtA.getText()+" + "+txtB.getText();
-        int resultado = Integer.parseInt(lblValorResultado.getText());
-        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
-        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
-        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
-        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
-    }
-    
-    public void GuardarOperacionesRestar(){ 
-        String operacion = txtA.getText()+" - "+txtB.getText();
-        int resultado = Integer.parseInt(lblValorResultado.getText());
-        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
-        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
-        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
-        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
-    }
-    
-    public void GuardarOperacionesMultiplicar(){ 
-        String operacion = txtA.getText()+" x "+txtB.getText();
-        int resultado = Integer.parseInt(lblValorResultado.getText());
-        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
-        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
-        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
-        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
-    }
-    
-    public void GuardarOperacionesDividir(){ 
-        String operacion = txtA.getText()+" / "+txtB.getText();
-        int resultado = Integer.parseInt(lblValorResultado.getText());
-        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
-        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
-        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
-        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
-    }
-    
-    public void GuardarOperacionesPotencia(){ 
-        String operacion = txtA.getText()+" ^ "+txtB.getText();
-        int resultado = Integer.parseInt(lblValorResultado.getText());
-        String signo = CalculadorController_Karol_Palma.mostrarSigno(resultado);
-        int cont = Integer.parseInt(lblValorCalculosRealizados.getText());
-        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, resultado, signo, cont);
-        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
-    }
-    
-    public void CargarOperaciones(){
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            CalculadorController_Karol_Palma.getListaOperacionComoArreglo(),
-            new String [] {
-                "Operaciones", "Resultado", "Signo"
+    public void CargarDatos(){
+        Calculador_Karol_Palma a;
+            for (int i = 0; i < contenedor.size(); i++) {
+                a=(Calculador_Karol_Palma)contenedor.get(i);
+                modelo.insertRow(contador, new Object[]{});
+                modelo.setValueAt(a.getOperacion(), contador, 0);
+                modelo.setValueAt(a.getResultado(), contador, 1);
+                modelo.setValueAt(a.getSigno(), contador, 2);
             }
-        ));
     }
+    
+    public static void conteoCalculosRealizados(){
+       int num = Integer.parseInt(lblValorCalculosRealizados.getText());
+       num++;
+       String conteo = String.valueOf(num);
+       lblValorCalculosRealizados.setText(conteo);
+        System.out.println("Numero de Calculos Realizados: "+conteo);
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -114,14 +85,14 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         btnPotencia = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblHistorial = new javax.swing.JTable();
         btnQuitar = new javax.swing.JButton();
         lblCalculosRealizados = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         lblValorCalculosRealizados = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Calculador");
 
         lblSaludo.setText("Buen día");
@@ -183,7 +154,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -194,13 +165,23 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                 "Operación", "Resultado", "Signo"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblHistorial);
 
         btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
         lblCalculosRealizados.setText("Calculos Realizados:");
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         lblValorCalculosRealizados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblValorCalculosRealizados.setForeground(new java.awt.Color(0, 153, 0));
@@ -252,9 +233,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnPotencia)
                                 .addGap(20, 20, 20))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, 0)
-                        .addComponent(btnRegresar)))
+                    .addComponent(btnRegresar))
                 .addGap(35, 35, 35))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -345,6 +324,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         Frm_Inicio_Karol_Palma abrirInicio = new Frm_Inicio_Karol_Palma();
@@ -362,10 +342,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             System.out.println("La suma de "+A+"+"+B+" es: "+ Resultado);
             String Resul = "" + Resultado;
             lblValorResultado.setText(Resul);
-            
-            conteo();
-            GuardarOperacionesSumar();
-            CargarOperaciones();
+            CalculadorController_Karol_Palma.agregarOperacionSuma(Resul);
+            conteoCalculosRealizados();
         }
     }//GEN-LAST:event_btnSumarActionPerformed
 
@@ -379,10 +357,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             System.out.println("La resta de "+A+"-"+B+" es: "+ Resultado);
             String Resul = "" + Resultado;
             lblValorResultado.setText(Resul);
-            
-            conteo();
-            GuardarOperacionesRestar();
-            CargarOperaciones();
+            CalculadorController_Karol_Palma.agregarOperacionResta(Resul);
+            conteoCalculosRealizados();
         }
     }//GEN-LAST:event_btnRestarActionPerformed
 
@@ -401,10 +377,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                 System.out.println("La división de "+A+"/"+B+" es: "+ Resultado);
                 Resul = " " + Resultado;
                 lblValorResultado.setText(Resul);
-            
-                conteo();
-                GuardarOperacionesDividir();
-                CargarOperaciones();
+                CalculadorController_Karol_Palma.agregarOperacionDividir(Resul);
+                conteoCalculosRealizados();
             }
         }
     }//GEN-LAST:event_btnDividirActionPerformed
@@ -416,13 +390,11 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             int A = Integer.parseInt(txtA.getText());
             int B = Integer.parseInt(txtB.getText());
             int Resultado = A * B;
-            System.out.println("La multiplicación de "+A+"*"+B+" es: "+ Resultado);
+            System.out.println("La multiplicacion de "+A+" * "+B+" es: "+ Resultado);
             String Resul = " " + Resultado;
             lblValorResultado.setText(Resul);
-            
-            conteo();
-            GuardarOperacionesMultiplicar();
-            CargarOperaciones();
+            CalculadorController_Karol_Palma.agregarOperacionMultiplicar(Resul);
+            conteoCalculosRealizados();
         }
     }//GEN-LAST:event_btnMultiplicarActionPerformed
 
@@ -433,19 +405,26 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             int A = Integer.parseInt(txtA.getText());
             int B = Integer.parseInt(txtB.getText());
             int Resultado = 1;
-            String Resul = "";
             for (int i = 0; i<B; i++){
                 Resultado = Resultado * A;
             }
-            System.out.println("La potencia de "+A+"^"+B+" es: "+ Resultado);
-            Resul = " " + Resultado;
+            System.out.println("La potencia de "+A+" ^ "+B+" es: "+ Resultado);
+            String Resul = " " + Resultado;
             lblValorResultado.setText(Resul);
-        
-            conteo();
-            GuardarOperacionesPotencia();
-            CargarOperaciones();
+            CalculadorController_Karol_Palma.agregarOperacionPotencia(Resul);
+            conteoCalculosRealizados();
         }
     }//GEN-LAST:event_btnPotenciaActionPerformed
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        contenedor.remove(buscar);
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        CargarInterfaz();
+        CargarDatos();
+            
+    }//GEN-LAST:event_btnActualizarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -495,7 +474,6 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
     private javax.swing.JButton btnSumar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblA;
     private javax.swing.JLabel lblB;
     private javax.swing.JLabel lblCalculosRealizados;
@@ -506,8 +484,9 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
     private javax.swing.JLabel lblSaludo;
     private javax.swing.JLabel lblTitulo;
     public static javax.swing.JLabel lblValorCalculosRealizados;
-    private javax.swing.JLabel lblValorResultado;
-    private javax.swing.JTextField txtA;
-    private javax.swing.JTextField txtB;
+    public static javax.swing.JLabel lblValorResultado;
+    private javax.swing.JTable tblHistorial;
+    public static javax.swing.JTextField txtA;
+    public static javax.swing.JTextField txtB;
     // End of variables declaration//GEN-END:variables
 }
