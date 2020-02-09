@@ -90,13 +90,16 @@ public class Frm_Inicio_Karol_Palma extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         if(txtNombre.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this,"Por favor ingrese un nombre","Error",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this,"Por favor ingrese su nombre","Error",JOptionPane.INFORMATION_MESSAGE);
         }else{
             Frm_Calculador_Karol_Palma abrirCalculador = new Frm_Calculador_Karol_Palma();
+            abrirCalculador.setDefaultCloseOperation(HIDE_ON_CLOSE);
             abrirCalculador.setVisible(true);
             this.setVisible(false);
             String nombre = txtNombre.getText();
             abrirCalculador.lblNombre.setText(nombre);
+            
+            
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 

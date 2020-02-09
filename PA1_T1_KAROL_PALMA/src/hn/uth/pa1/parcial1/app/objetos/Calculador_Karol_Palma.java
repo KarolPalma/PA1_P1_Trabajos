@@ -14,16 +14,16 @@ import java.util.List;
  */
 public class Calculador_Karol_Palma {
     private String Operacion;
-    private int Resultado;
+    private String Resultado;
     private String Signo;
     
     public Calculador_Karol_Palma() {
         this.Operacion = "";
-        this.Resultado = 0;
+        this.Resultado = "";
         this.Signo = "";
     }
     
-    public Calculador_Karol_Palma(String Operacion, int Resultado, String Signo) {
+    public Calculador_Karol_Palma(String Operacion, String Resultado, String Signo) {
         this.Operacion = Operacion;
         this.Resultado = Resultado;
         this.Signo = Signo;
@@ -37,11 +37,11 @@ public class Calculador_Karol_Palma {
         this.Operacion = Operacion;
     }
 
-    public int getResultado() {
+    public String getResultado() {
         return Resultado;
     }
 
-    public void setResultado(int Resultado) {
+    public void setResultado(String Resultado) {
         this.Resultado = Resultado;
     }
 

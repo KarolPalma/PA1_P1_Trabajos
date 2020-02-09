@@ -7,7 +7,6 @@ package hn.uth.pa1.parcial1.app;
 
 import hn.uth.pa1.parcial1.app.objetos.CalculadorController_Karol_Palma;
 import hn.uth.pa1.parcial1.app.objetos.Calculador_Karol_Palma;
-import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -21,42 +20,16 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
      * Creates new form Frm_Calculador_Karol_Palma
      */
     
-    public static LinkedList contenedor = new LinkedList();
-    public int buscar;
-    
-    private DefaultTableModel modelo;
-    int contador = 0;
-    
     public Frm_Calculador_Karol_Palma() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
     
-    public void CargarInterfaz(){
-        String datos[][]={};
-        String columna[]={"Operaciones ","Resultado ", "Signo"};
-        modelo = new DefaultTableModel(datos, columna);
-        tblHistorial.setModel(modelo);
-    }
-    
-    public void CargarDatos(){
-        Calculador_Karol_Palma a;
-            for (int i = 0; i < contenedor.size(); i++) {
-                a=(Calculador_Karol_Palma)contenedor.get(i);
-                modelo.insertRow(contador, new Object[]{});
-                modelo.setValueAt(a.getOperacion(), contador, 0);
-                modelo.setValueAt(a.getResultado(), contador, 1);
-                modelo.setValueAt(a.getSigno(), contador, 2);
-            }
-    }
-    
-    public static void conteoCalculosRealizados(){
-       int num = Integer.parseInt(lblValorCalculosRealizados.getText());
-       num++;
-       String conteo = String.valueOf(num);
-       lblValorCalculosRealizados.setText(conteo);
-        System.out.println("Numero de Calculos Realizados: "+conteo);
-   }
+    public static int A = 0;
+    public static int B = 0;
+    public static int Resultado = 0;
+    public static Calculador_Karol_Palma operacion;
+    public static String OP;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,8 +40,6 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblSaludo = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         lblA = new javax.swing.JLabel();
         lblB = new javax.swing.JLabel();
@@ -76,13 +47,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         txtA = new javax.swing.JTextField();
         txtB = new javax.swing.JTextField();
         lblValorResultado = new javax.swing.JLabel();
-        lblOperaciones = new javax.swing.JLabel();
         lblHistorial = new javax.swing.JLabel();
-        btnDividir = new javax.swing.JButton();
-        btnMultiplicar = new javax.swing.JButton();
-        btnSumar = new javax.swing.JButton();
-        btnRestar = new javax.swing.JButton();
-        btnPotencia = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHistorial = new javax.swing.JTable();
@@ -90,16 +55,21 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         lblCalculosRealizados = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         lblValorCalculosRealizados = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblOperaciones = new javax.swing.JLabel();
+        btnDividir = new javax.swing.JButton();
+        btnMultiplicar = new javax.swing.JButton();
+        btnSumar = new javax.swing.JButton();
+        btnRestar = new javax.swing.JButton();
+        btnPotencia = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        lblSaludo = new javax.swing.JLabel();
+        lblNombre = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Calculador");
-
-        lblSaludo.setText("Buen día");
-
-        lblNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblNombre.setForeground(new java.awt.Color(0, 153, 0));
-        lblNombre.setText("Nombre");
+        setBackground(new java.awt.Color(204, 204, 255));
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lblTitulo.setText("Calculadora");
@@ -114,10 +84,50 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         lblValorResultado.setForeground(new java.awt.Color(0, 153, 0));
         lblValorResultado.setText("0");
 
-        lblOperaciones.setText("Operaciones:");
-
         lblHistorial.setBackground(new java.awt.Color(255, 0, 0));
         lblHistorial.setText("Historial:");
+
+        tblHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Operación", "Resultado", "Signo"
+            }
+        ));
+        tblHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblHistorialMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblHistorial);
+
+        btnQuitar.setText("Quitar");
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
+
+        lblCalculosRealizados.setText("Calculos Realizados:");
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        lblValorCalculosRealizados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblValorCalculosRealizados.setForeground(new java.awt.Color(0, 153, 0));
+        lblValorCalculosRealizados.setText("0");
+
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
+
+        lblOperaciones.setText("Operaciones:");
 
         btnDividir.setText("/");
         btnDividir.addActionListener(new java.awt.event.ActionListener() {
@@ -154,38 +164,57 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             }
         });
 
-        tblHistorial.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Operación", "Resultado", "Signo"
-            }
-        ));
-        jScrollPane1.setViewportView(tblHistorial);
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(btnSumar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnDividir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnRestar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnMultiplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(btnPotencia, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(29, 29, 29)))
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(lblOperaciones)
+                        .addGap(44, 44, 44))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addComponent(lblOperaciones)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRestar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSumar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnDividir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMultiplicar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPotencia, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        btnQuitar.setText("Quitar");
-        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQuitarActionPerformed(evt);
-            }
-        });
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
-        lblCalculosRealizados.setText("Calculos Realizados:");
+        lblSaludo.setText("Buen día");
 
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
-        lblValorCalculosRealizados.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblValorCalculosRealizados.setForeground(new java.awt.Color(0, 153, 0));
-        lblValorCalculosRealizados.setText("0");
+        lblNombre.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblNombre.setForeground(new java.awt.Color(0, 153, 0));
+        lblNombre.setText("Nombre");
 
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -194,92 +223,112 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(lblSaludo)
+                .addGap(18, 18, 18)
+                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addGap(45, 45, 45))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar)
+                    .addComponent(lblSaludo)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 11, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblA, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtB, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(lblResultado)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblValorResultado)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(3, 3, 3)
-                            .addComponent(lblOperaciones)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnSumar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnDividir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnMultiplicar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnRestar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnPotencia)
-                                .addGap(20, 20, 20))))
-                    .addComponent(btnRegresar))
-                .addGap(35, 35, 35))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCalculosRealizados)
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(38, 38, 38)
-                                .addComponent(lblValorCalculosRealizados))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnActualizar))
-                                .addGap(9, 9, 9)))
-                        .addGap(16, 16, 16))
+                                .addComponent(lblResultado)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblValorResultado))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblB, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtB))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblA, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(38, 38, 38)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 44, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblHistorial)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(lblSaludo)
-                                .addGap(28, 28, 28)
-                                .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblCalculosRealizados)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(38, 38, 38)
+                                        .addComponent(lblValorCalculosRealizados)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnActualizar))
+                                .addGap(30, 30, 30))))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(143, 143, 143)
+                .addGap(180, 180, 180)
                 .addComponent(lblTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblTitulo)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblSaludo)
-                            .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegresar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(lblTitulo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnQuitar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnActualizar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblCalculosRealizados)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblValorCalculosRealizados)
+                                .addGap(25, 25, 25))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblA, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -289,42 +338,21 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
                             .addComponent(txtB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblResultado)
-                            .addComponent(lblValorResultado)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 88, Short.MAX_VALUE)
-                        .addComponent(lblOperaciones)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnSumar)
-                            .addComponent(btnRestar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDividir)
-                            .addComponent(btnMultiplicar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnPotencia)))
-                .addGap(27, 27, 27)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnQuitar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnActualizar)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblCalculosRealizados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblValorCalculosRealizados)))
-                .addGap(16, 16, 16))
+                            .addComponent(lblValorResultado)
+                            .addComponent(lblResultado))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+    /*public static void GuardarDatosLista(){
+        String operacion = OP;
+        String resultado = lblValorResultado.getText();
+        String signo = CalculadorController_Karol_Palma.mostrarSigno(String.valueOf(Resultado));
+        
+        Calculador_Karol_Palma calculo = new Calculador_Karol_Palma(operacion, Integer.parseInt(resultado), signo);
+        CalculadorController_Karol_Palma.agregarOperacionLista(calculo);
+    } */
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         Frm_Inicio_Karol_Palma abrirInicio = new Frm_Inicio_Karol_Palma();
@@ -336,14 +364,15 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
         }else{
-            int A = Integer.parseInt(txtA.getText());
-            int B = Integer.parseInt(txtB.getText());
-            int Resultado = A + B;
+            A = Integer.parseInt(txtA.getText());
+            B = Integer.parseInt(txtB.getText());
+            Resultado = A + B;
             System.out.println("La suma de "+A+"+"+B+" es: "+ Resultado);
-            String Resul = "" + Resultado;
-            lblValorResultado.setText(Resul);
-            CalculadorController_Karol_Palma.agregarOperacionSuma(Resul);
-            conteoCalculosRealizados();
+            lblValorResultado.setText(String.valueOf(Resultado));
+            OP = A+"+"+B;
+            operacion = new Calculador_Karol_Palma(OP, String.valueOf(Resultado), CalculadorController_Karol_Palma.mostrarSigno(String.valueOf(Resultado)));
+            CalculadorController_Karol_Palma.agregarOperacionLista(operacion);
+            lblValorCalculosRealizados.setText(String.valueOf(CalculadorController_Karol_Palma.tamanioLista()));
         }
     }//GEN-LAST:event_btnSumarActionPerformed
 
@@ -351,14 +380,15 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
         }else{
-            int A = Integer.parseInt(txtA.getText());
-            int B = Integer.parseInt(txtB.getText());
-            int Resultado = A - B;
+            A = Integer.parseInt(txtA.getText());
+            B = Integer.parseInt(txtB.getText());
+            Resultado = A - B;
             System.out.println("La resta de "+A+"-"+B+" es: "+ Resultado);
-            String Resul = "" + Resultado;
-            lblValorResultado.setText(Resul);
-            CalculadorController_Karol_Palma.agregarOperacionResta(Resul);
-            conteoCalculosRealizados();
+            lblValorResultado.setText(String.valueOf(Resultado));
+            OP = A+"-"+B;
+            operacion = new Calculador_Karol_Palma(OP, String.valueOf(Resultado), CalculadorController_Karol_Palma.mostrarSigno(String.valueOf(Resultado)));
+            CalculadorController_Karol_Palma.agregarOperacionLista(operacion);
+            lblValorCalculosRealizados.setText(String.valueOf(CalculadorController_Karol_Palma.tamanioLista()));
         }
     }//GEN-LAST:event_btnRestarActionPerformed
 
@@ -366,20 +396,24 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
         }else{
-            int A = Integer.parseInt(txtA.getText());
-            int B = Integer.parseInt(txtB.getText());
+            A = Integer.parseInt(txtA.getText());
+            B = Integer.parseInt(txtB.getText());
             String Resul = " ";
+            OP = A+"/"+B;
             if(B == 0){
-                Resul= "No hay solución";
+                Resul= "No Definido";
                 System.out.println("La división entre 0 no tiene solución");
-            }else{
-                int Resultado = A / B;
-                System.out.println("La división de "+A+"/"+B+" es: "+ Resultado);
-                Resul = " " + Resultado;
                 lblValorResultado.setText(Resul);
-                CalculadorController_Karol_Palma.agregarOperacionDividir(Resul);
-                conteoCalculosRealizados();
+                operacion = new Calculador_Karol_Palma(OP, Resul, "Neutro");
+            }else{
+                Resultado = A / B;
+                System.out.println("La división de "+A+"/"+B+" es: "+ Resultado);
+                lblValorResultado.setText(String.valueOf(Resultado));
+                
+                operacion = new Calculador_Karol_Palma(OP, String.valueOf(Resultado), CalculadorController_Karol_Palma.mostrarSigno(String.valueOf(Resultado)));
             }
+            CalculadorController_Karol_Palma.agregarOperacionLista(operacion);
+            lblValorCalculosRealizados.setText(String.valueOf(CalculadorController_Karol_Palma.tamanioLista()));
         }
     }//GEN-LAST:event_btnDividirActionPerformed
 
@@ -387,14 +421,15 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
         }else{
-            int A = Integer.parseInt(txtA.getText());
-            int B = Integer.parseInt(txtB.getText());
-            int Resultado = A * B;
+            A = Integer.parseInt(txtA.getText());
+            B = Integer.parseInt(txtB.getText());
+            Resultado = A * B;
             System.out.println("La multiplicacion de "+A+" * "+B+" es: "+ Resultado);
-            String Resul = " " + Resultado;
-            lblValorResultado.setText(Resul);
-            CalculadorController_Karol_Palma.agregarOperacionMultiplicar(Resul);
-            conteoCalculosRealizados();
+            lblValorResultado.setText(String.valueOf(Resultado));
+            OP = A+"*"+B;
+            operacion = new Calculador_Karol_Palma(OP, String.valueOf(Resultado), CalculadorController_Karol_Palma.mostrarSigno(String.valueOf(Resultado)));
+            CalculadorController_Karol_Palma.agregarOperacionLista(operacion);
+            lblValorCalculosRealizados.setText(String.valueOf(CalculadorController_Karol_Palma.tamanioLista()));
         }
     }//GEN-LAST:event_btnMultiplicarActionPerformed
 
@@ -402,29 +437,43 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
         if(txtA.getText().isEmpty() || txtB.getText().isEmpty()){
             JOptionPane.showMessageDialog(this,"Los campos no pueden ser vacios","Error",JOptionPane.INFORMATION_MESSAGE);
         }else{
-            int A = Integer.parseInt(txtA.getText());
-            int B = Integer.parseInt(txtB.getText());
-            int Resultado = 1;
+            A = Integer.parseInt(txtA.getText());
+            B = Integer.parseInt(txtB.getText());
+            Resultado = 1;
             for (int i = 0; i<B; i++){
                 Resultado = Resultado * A;
             }
             System.out.println("La potencia de "+A+" ^ "+B+" es: "+ Resultado);
-            String Resul = " " + Resultado;
-            lblValorResultado.setText(Resul);
-            CalculadorController_Karol_Palma.agregarOperacionPotencia(Resul);
-            conteoCalculosRealizados();
+            lblValorResultado.setText(String.valueOf(Resultado));
+            OP = A+"^"+B;
+            operacion = new Calculador_Karol_Palma(OP, String.valueOf(Resultado), CalculadorController_Karol_Palma.mostrarSigno(String.valueOf(Resultado)));
+            CalculadorController_Karol_Palma.agregarOperacionLista(operacion);
+            lblValorCalculosRealizados.setText(String.valueOf(CalculadorController_Karol_Palma.tamanioLista()));
         }
     }//GEN-LAST:event_btnPotenciaActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
-        contenedor.remove(buscar);
+        DefaultTableModel tabla = (DefaultTableModel) tblHistorial.getModel();
+        if (tblHistorial.getRowCount() > 0)
+             tabla.removeRow(tblHistorial.getRowCount()-1);
+        CalculadorController_Karol_Palma.listaOperaciones.remove(CalculadorController_Karol_Palma.tamanioLista()-1);
+        lblValorCalculosRealizados.setText(String.valueOf(CalculadorController_Karol_Palma.tamanioLista()));
     }//GEN-LAST:event_btnQuitarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        CargarInterfaz();
-        CargarDatos();
-            
+        //CalculadorController_Karol_Palma.agregarOperacionLista(operacion);
+            lblValorCalculosRealizados.setText(String.valueOf(CalculadorController_Karol_Palma.tamanioLista()));
+            tblHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            CalculadorController_Karol_Palma.getListaOperadoresComoArreglo(),
+            new String [] {
+                "Operación", "Resultado", "Signo"
+            }
+        ));
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tblHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHistorialMouseClicked
+
+    }//GEN-LAST:event_tblHistorialMouseClicked
     
     /**
      * @param args the command line arguments
@@ -472,6 +521,8 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRestar;
     private javax.swing.JButton btnSumar;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblA;
@@ -485,7 +536,7 @@ public class Frm_Calculador_Karol_Palma extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     public static javax.swing.JLabel lblValorCalculosRealizados;
     public static javax.swing.JLabel lblValorResultado;
-    private javax.swing.JTable tblHistorial;
+    public static javax.swing.JTable tblHistorial;
     public static javax.swing.JTextField txtA;
     public static javax.swing.JTextField txtB;
     // End of variables declaration//GEN-END:variables
